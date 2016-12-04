@@ -1,4 +1,4 @@
-angular.module('HistoryService', []).factory('History', ['$http', function($http) {
+app.factory('History', ['$http', function($http) {
 
 	
 

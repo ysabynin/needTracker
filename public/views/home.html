@@ -1,5 +1,35 @@
 <div class="jumbotron text-center">
-	<h1>Index Page</h1>
-
-	<p>{{ tagline }}</p>
+	<div id="tree" ng-init="renderTree()">
+	</div>
+	<!--
+	<ul>
+		<li ng-repeat="need in needs">{{need.title}}</li>
+	</ul>
+	<select ng-model="selectedNeed" class="form-control"
+			ng-options="need.title for need in needs"
+			ng-change="selectedItemChanged()">
+		<option value="">Choose your Need</option>
+	</select>
+	Selected = <p>{{selectedNeed}}</p>
+	<table class="table">
+		<thead>
+			<th>Составляющая</th>
+			<th>Сумма</th>
+			<th>Дата</th>
+			<th>Место</th>
+			<th>Функции</th>
+		</thead>
+		<tbody>
+		<tr ng-repeat="charge in currentCharges">
+			<td>{{charge.name}}</td>
+			<td>{{charge.sum}}</td>
+			<td>{{charge.date | date : 'dd-MM-yyyy'}}</td>
+			<td>{{charge.reciever}}</td>
+			<td>
+				<button><span class="glyphicon glyphicon-edit"></span></button>
+				<button><span class="glyphicon glyphicon-remove"></span></button>
+			</td>
+		</tr>
+		</tbody>
+	</table>-->
 </div>
