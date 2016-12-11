@@ -10,8 +10,13 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+	<link rel="stylesheet" href="css/header.css">
 
-	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="libs/d3js/d3.v3.min.js"></script>
+	<script src="libs/canvas-to-blob/canvas-toBlob.js"></script>
+	<script src="libs/file-saver/FileSaver.min.js"></script>
+	<script src="libs/blob/Blob.js"></script>
+
 	<!-- JS -->
 	<script src="libs/angular/angular.min.js"></script>
 	<script src="libs/angular-route/angular-route.min.js"></script>
@@ -30,19 +35,7 @@
 	<script src="js/appRoutes.js"></script>
 </head>
 <body ng-app="sampleApp" ng-controller="NeedController">
-<div class="container">
-	
-	<!-- HEADER -->
-	<nav class="navbar navbar-inverse">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="/">NeedTracker</a>
-		</div>
-		<ul class="nav navbar-nav">
-			<li><a href="/needs">Needs</a></li>
-			<li><a href="/history">History</a></li>
-		</ul>
-	</nav>
-
+	<div ng-include src="'navbar.html'"></div>
 	<!-- ANGULAR DYNAMIC CONTENT -->
 	<div ng-view></div>
 

@@ -35,8 +35,12 @@ app.service('TreeService', function (LocationService) {
 
     var render = function () {
         init();
-        d3.json("graph.json", function (error, flare) {
+        d3.json("http://localhost:8080/api/v1/users/ysabynin/tree/needs"/*"graph.json"*/, function (error, data) {
+
             if (error) throw error;
+            var flare = {};
+            flare["title"] = "Needs";
+            flare["children"] = data.children["needs"];
 
             root = flare;
             root.x0 = height / 2;
@@ -106,17 +110,17 @@ app.service('TreeService', function (LocationService) {
 
         nodeEnter.append("text")
             .attr("x", function (d) {
-                return -35;
+                return d.children || d._children ? 10 : -25;
             })
             .attr("y", function (d) {
-                return d.children || d._children ? -10 : 10;
+                return -5;
             })
             .attr("dy", ".7em")
             .attr("text-anchor", function (d) {
                 return d.children || d._children ? "end" : "start";
             })
             .text(function (d) {
-                return d.name/* + " " + d.cost*/;
+                return d.title/* + " " + d.cost*/;
             })
             .style("fill-opacity", 1e-6);
 
@@ -199,7 +203,7 @@ app.service('TreeService', function (LocationService) {
     }
 
     function hover(d) {
-        LocationService.changeLocation('/needs/'+ d.id);
+        LocationService.changeLocation('/needs/'+ d._id);
     }
 
     return {
