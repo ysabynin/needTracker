@@ -3,6 +3,19 @@
 		<div class="main">
 			<button id="export" class="btn btn-default pull-right">Export in CSV</button>
 			<div id="tree" class="col-sm-12 col-md-12 col-lg-12 img-thumbnail" ng-init="renderTree()"/>
+			<a class="btn btn-default" role="button" type="button" data-toggle="collapse"
+			   href="#needForm" aria-expanded="false" aria-controls="collapseExample">
+				<span class="glyphicon glyphicon-plus"/>
+			</a>
+			<form id="needForm" class="form-horizontal collapse" role="form" ng-submit="insertRow();clearForm()">
+				<div class="form-group">
+					<!--<label class="col-md-1 control-label">Название</label>-->
+					<div class="col-md-3">
+						<input type="text" class="form-control" name="name" ng-model="title" />
+						<input type="submit" value="Добавить" class="btn btn-default"/>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

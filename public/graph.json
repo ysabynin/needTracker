@@ -4,47 +4,17 @@
     {
       "id":"57efe45dafebb53590601d1b",
       "name": "Car",
-      "cost": 3938,
-      "children": [
-        {
-          "name": "Change wheels",
-          "cost": 3938
-        },
-        {
-          "name": "Repair motor",
-          "cost": 3812
-        }
-      ]
+      "cost": 3938
     },
     {
       "id":"57efe45dafebb53590601d1c",
       "name": "Apartments",
-      "cost": 3938,
-      "children": [
-        {
-          "name": "Rent",
-          "cost": 3534
-        },
-        {
-          "name": "new Table",
-          "cost": 5731
-        }
-      ]
+      "cost": 3938
     },
     {
       "id":"57efe45dafebb53590601d1d",
       "name": "Eat",
-      "cost": 3938,
-      "children": [
-        {
-          "name": "Restaurant",
-          "cost": 7074
-        },
-        {
-          "name": "Cafe",
-          "cost": 7074
-        }
-      ]
+      "cost": 3938
     }
   ]
 }

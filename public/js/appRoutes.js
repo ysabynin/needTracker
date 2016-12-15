@@ -18,6 +18,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 		.when('/history', {
 			templateUrl: 'views/history.html',
 			controller: 'HistoryController'
+		})
+		.when('/statistics', {
+			templateUrl: 'views/statistics.html',
+			controller: 'StatisticsController'
 		});
 
 	$locationProvider.html5Mode(true);

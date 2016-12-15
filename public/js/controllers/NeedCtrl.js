@@ -1,6 +1,19 @@
 app.controller('NeedController', ['$routeParams', '$http', '$scope' ,function($routeParams,$http,$scope) {
 	var needId = $routeParams.id;
 
+	$scope.showForm = false;
+
+	$scope.toggleForm = function() {
+		$scope.showForm = !$scope.showForm;
+	};
+
+	$scope.clearForm = function () {
+		$scope.title = '';
+		$scope.sum = '';
+		$scope.date = '';
+		$scope.place = '';
+	};
+
 	$scope.loadCharges = function () {
 		$http.get("/api/v1/users/ysabynin/needs/" + needId + '/charges')
 			.then(function (response) {

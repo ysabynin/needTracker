@@ -1,5 +1,41 @@
-<div class="container">
+<div class="container"">
     <h1 class="page-header">Needs</h1>
+    <!-- Button trigger modal -->
+    <a class="btn btn-default" role="button" type="button" data-toggle="collapse"
+            href="#chargeForm" aria-expanded="false" aria-controls="collapseExample">
+        <span class="glyphicon glyphicon-plus"/>
+    </a>
+    <form id="chargeForm" class="form-horizontal collapse" role="form" ng-submit="insertRow();clearForm()">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Название</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="name" ng-model="title" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Сумма</label>
+            <div class="col-md-4">
+                <input type="number" class="form-control" name="employees" ng-model="sum" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Дата</label>
+            <div class="col-md-4">
+                <input type="date" class="form-control" name="headoffice" ng-model="date" placeholder="dd-MM-yyyy"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Место</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="headoffice" ng-model="place" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div style="padding-left:110px">
+                <input type="submit" value="Добавить" class="btn btn-default"/>
+            </div>
+        </div>
+    </form>
     <div class="table-responsive">
         <table class="table table-striped" ng-init="loadCharges()">
             <thead>
@@ -35,36 +71,4 @@
             </tbody>
         </table>
     </div>
-
-    <form class="form-horizontal" role="form" ng-submit="insertRow()">
-        <div class="form-group">
-            <label class="col-md-2 control-label">Название</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="name" ng-model="title" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Сумма</label>
-            <div class="col-md-4">
-                <input type="number" class="form-control" name="employees" ng-model="sum" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Дата</label>
-            <div class="col-md-4">
-                <input type="date" class="form-control" name="headoffice" ng-model="date" placeholder="dd-MM-yyyy"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">Место</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control" name="headoffice" ng-model="place" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div style="padding-left:110px">
-                <input type="submit" value="Submit" class="btn btn-primary"/>
-            </div>
-        </div>
-    </form>
 </div>

@@ -1,4 +1,4 @@
-var app = angular.module('sampleApp', ['ngRoute']);
+var app = angular.module('sampleApp', ['ngRoute','googlechart']);
 
 app.directive("formatDate", function(){
     return {
