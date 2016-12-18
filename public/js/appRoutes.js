@@ -8,16 +8,16 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 			controller: 'MainController'
 		})
 		.when('/needs', {
-			templateUrl: 'views/need.html',
-			controller: 'NeedController'
+			templateUrl: 'views/needs.html',
+			controller: 'NeedsController'
 		})
 		.when('/needs/:id', {
 			templateUrl: 'views/need.html',
 			controller: 'NeedController'
 		})
-		.when('/history', {
-			templateUrl: 'views/history.html',
-			controller: 'HistoryController'
+		.when('/import', {
+			templateUrl: 'views/import.html',
+			controller: 'ImportController'
 		})
 		.when('/statistics', {
 			templateUrl: 'views/statistics.html',

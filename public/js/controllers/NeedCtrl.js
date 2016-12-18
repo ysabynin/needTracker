@@ -1,5 +1,6 @@
 app.controller('NeedController', ['$routeParams', '$http', '$scope' ,function($routeParams,$http,$scope) {
 	var needId = $routeParams.id;
+	$scope.needDetailsName = "";
 
 	$scope.showForm = false;
 
@@ -17,7 +18,9 @@ app.controller('NeedController', ['$routeParams', '$http', '$scope' ,function($r
 	$scope.loadCharges = function () {
 		$http.get("/api/v1/users/ysabynin/needs/" + needId + '/charges')
 			.then(function (response) {
-				$scope.currentCharges = response.data;
+                $scope.need = response.data;
+                $scope.needDetailsName = response.data["title"];
+				$scope.currentCharges = response.data.charges;
 			});
 	}
 
@@ -27,6 +30,8 @@ app.controller('NeedController', ['$routeParams', '$http', '$scope' ,function($r
 		data["sum"] = $scope.sum;
 		data["date"] = $scope.date;
 		data["reciever"] = $scope.place;
+		data["username"] = $scope.need.username;
+		data["needName"] = $scope.need.title;
 
 		$http.post("/api/v1/users/ysabynin/needs/" + needId + '/charges',data)
 			.then(function (response) {

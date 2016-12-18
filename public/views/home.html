@@ -1,21 +1,26 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="main">
-			<button id="export" class="btn btn-default pull-right">Export in CSV</button>
-			<div id="tree" class="col-sm-12 col-md-12 col-lg-12 img-thumbnail" ng-init="renderTree()"/>
-			<a class="btn btn-default" role="button" type="button" data-toggle="collapse"
-			   href="#needForm" aria-expanded="false" aria-controls="collapseExample">
-				<span class="glyphicon glyphicon-plus"/>
-			</a>
-			<form id="needForm" class="form-horizontal collapse" role="form" ng-submit="insertRow();clearForm()">
+			<form id="exportForm" class="col-md-4 pull-right" method="GET" action="/api/v1/users/ysabynin/charges/export">
+				<button id="export" class="btn btn-default" type="submit">Export in CSV</button>
+			</form>
+			<form id="needForm" class="col-md-4" role="form" ng-submit="addNeed();clearForm()">
 				<div class="form-group">
 					<!--<label class="col-md-1 control-label">Название</label>-->
-					<div class="col-md-3">
-						<input type="text" class="form-control" name="name" ng-model="title" />
+					<div style="display: flex">
+						<input type="text" class="form-control" name="name" ng-model="needName" />
 						<input type="submit" value="Добавить" class="btn btn-default"/>
 					</div>
 				</div>
 			</form>
+			<div id="tree" class="col-sm-12 col-md-12 col-lg-12 img-thumbnail" ng-init="renderTree()">
+				<svg></svg>
+				<div class="tooltip"></div>
+			</div>
+<!--			<a class="btn btn-default" role="button" type="button" data-toggle="collapse"
+			   href="#needForm" aria-expanded="false" aria-controls="collapseExample">
+				<span class="glyphicon glyphicon-plus"/>
+			</a>-->
 		</div>
 	</div>
 </div>

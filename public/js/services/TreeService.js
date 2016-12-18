@@ -1,4 +1,4 @@
-app.service('TreeService', function (LocationService) {
+app.service('TreeService',  function (LocationService) {
     var margin, width, height;
     var i, duration, root;
     var radius;
@@ -22,19 +22,20 @@ app.service('TreeService', function (LocationService) {
                 return [d.y, d.x];
             });
 
-        svg = d3.select("#tree").append("svg")
+        svg = d3.select("#tree svg")
             .attr("width", width + margin.right + margin.left)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        div = d3.select("#tree").append("div")
-            .attr("class", "tooltip")
+        div = d3.select("#tree .tooltip")
             .style("opacity", 0);
     };
 
-    var render = function () {
-        init();
+    var render = function (needToInit) {
+        if(needToInit)
+            init();
+
         d3.json("http://localhost:8080/api/v1/users/ysabynin/tree/needs"/*"graph.json"*/, function (error, data) {
 
             if (error) throw error;
@@ -124,7 +125,6 @@ app.service('TreeService', function (LocationService) {
             })
             .style("fill-opacity", 1e-6);
 
-
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
             .duration(duration)
@@ -203,7 +203,8 @@ app.service('TreeService', function (LocationService) {
     }
 
     function hover(d) {
-        LocationService.changeLocation('/needs/'+ d._id);
+        var uri = d._id ? '/needs/'+ d._id : '/needs';
+        LocationService.changeLocation(uri);
     }
 
     return {
