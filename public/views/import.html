@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <div class="main">
+            <div class="title"><h4>Выберите CSV-файл: </h4></div>
+            <div class="block right">
+                <ng-csv-import
+                        callback="getResult()"
+                        class="import"
+                        content="csv.content"
+                        header="csv.header"
+                        header-visible="csv.headerVisible"
+                        separator="csv.separator"
+                        separator-visible="csv.separatorVisible"
+                        result="csv.result"
+                        encoding="csv.encoding"
+                        encoding-visible="csv.encodingVisible"
+                        upload-button-label="csv.uploadButtonLabel"></ng-csv-import>
+            </div>
+            <input type="button" value="Импортировать" class="btn btn-default" ng-click="saveImportedData()"/>
+            <input type="button" value="Удалить данные" class="btn btn-default" ng-click="deleteImportedData()"/>
+            <div class="table-responsive" ng-init="loadImportedCharges()">
+                <table class="table table-striped">
+                    <thead>
+                    <th>Название</th>
+                    <th>Сумма</th>
+                    <th>Дата</th>
+                    <th>Место</th>
+                    <th>Потребность</th>
+                    <th>Функции</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="charge in importedCharges" ng-init="isEditable=false">
+                        <td>
+                            <input type="text" class="form-control" ng-model="charge.name"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" ng-model="charge.sum"/>
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" ng-model="charge.date" format-date/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="charge.reciever"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="charge.needName"/>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-click="updateRow(charge)"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="deleteRow($index)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -129,7 +129,78 @@ module.exports = function (wagner) {
                 'Content-Disposition': 'attachment; filename=charges.csv'
             });
             // pipe file using mongoose-csv
-            Charge.find({},{'_id': 0, 'username':0}).csv(res);
+            Charge.find({}, {'_id': 0, 'username': 0}).csv(res);
+        }
+    }));
+
+    api.get('/users/:login/charges', wagner.invoke(function (Charge) {
+        return function (req, res) {
+            Charge.find({"needName": ""})
+                .exec(function (err, element) {
+                    if (err) return res.send(500, {error: err});
+                    return res.status(200).send(element);
+                });
+        }
+    }));
+
+    api.post('/users/:login/charges', wagner.invoke(function (Charge) {
+        return function (req, res) {
+            Charge.insertMany(
+                req.body,
+                function (err, element) {
+                    if (err) return res.send(500, {error: err});
+                    return res.status(200).send(element["ops"]);
+                }
+            );
+        }
+    }));
+
+    api.delete('/users/:login/charges', wagner.invoke(function (Charge) {
+        return function (req, res) {
+            Charge.remove(
+                {"needName": ""},
+                function (err, element) {
+                    if (err) return res.send(500, {error: err});
+                    return res.status(200);
+                }
+            );
+        }
+    }));
+
+    api.put('/users/:login/charges/:chargeId', wagner.invoke(function (Need, Charge) {
+        return function (req, res) {
+            Charge.update(
+                {"_id": req.params.chargeId},
+                req.body,
+                function (err, element) {
+                    if (err) return res.send(500, {error: err});
+
+                    if (req.body["needName"]) {
+                        Need.update(
+                            {"username": req.params.login, "title": req.body["needName"], "charges" : {$nin: [req.body["_id"]]}},
+                            {$push : {"charges": req.body["_id"]}},
+                            function (err, element) {
+                                if (err) return res.send(500, {error: err});
+                                return res.status(200);
+                            }
+                        );
+                    } else {
+                        return res.status(200);
+                    }
+                }
+            );
+        }
+    }));
+
+    api.delete('/users/:login/charges/:chargeId', wagner.invoke(function (Charge) {
+        return function (req, res) {
+            Charge.remove(
+                {"_id": req.params.chargeId},
+                function (err, element) {
+                    if (err) return res.send(500, {error: err});
+                    return res.status(200).send(element);
+                }
+            );
         }
     }));
 

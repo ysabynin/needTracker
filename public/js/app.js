@@ -1,4 +1,4 @@
-var app = angular.module('sampleApp', ['ngRoute','googlechart']);
+var app = angular.module('sampleApp', ['ngRoute','googlechart','ngCsvImport']);
 
 app.run(function($rootScope, $http) {
     $http.get("/api/v1/users/ysabynin")
