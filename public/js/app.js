@@ -1,5 +1,12 @@
 var app = angular.module('sampleApp', ['ngRoute','googlechart']);
 
+app.run(function($rootScope, $http) {
+    $http.get("/api/v1/users/ysabynin")
+        .then(function (response) {
+            $rootScope.userNeeds = response.data["profile"]["needs"];
+        });
+});
+
 app.directive("formatDate", function(){
     return {
         require: 'ngModel',

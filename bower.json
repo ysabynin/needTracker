@@ -7,6 +7,7 @@
     "angular-route": "latest",
     "file-saver": "^1.3.3",
     "blob": "*",
-    "angular-google-chart": "0.1.0"
+    "angular-google-chart": "0.1.0",
+    "d3":"3.4.13"
   }
 }

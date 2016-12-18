@@ -1,4 +1,46 @@
-app.controller('ColumnChartController',function($scope) {
+app.controller('ColumnChartController', function ($scope, $http, $rootScope) {
+
+    $http.get("/api/v1/users/ysabynin/statistics/columnchart")
+        .then(function (response) {
+            var resData = response.data;
+            var rows =  $scope.columnChartObject.data.rows;
+            var cols =  $scope.columnChartObject.data.cols;
+            var colNames = [];
+
+            var userNeeds = $rootScope.userNeeds;
+
+            for(var k = 0; k < userNeeds.length; k++){
+                var object = {"label": userNeeds[k].title, "type": "number"};
+                cols.push(object);
+                colNames.push(userNeeds[k].title);
+            }
+
+            for (var i = 0; i < resData.length; i++) {
+                var currentObject = resData[i];
+                var currentObjectChildren = currentObject["children"];
+
+                var label = currentObject["_id"].month + " " + currentObject["_id"].year;
+                rows.push({"c": [{"v": label}]});
+
+                var tempObject = [];
+                for (var k = 0; k < colNames.length; k++){
+                    tempObject.push({"sum": 0, "needName": colNames[k]})
+                }
+
+                for (var l = 0; l < currentObjectChildren.length; l++){
+                    var needName = currentObjectChildren[l].needName;
+                    var index = colNames.indexOf(needName);
+                    tempObject[index] = {"sum": currentObjectChildren[l].sum, "needName": needName};
+                }
+                currentObjectChildren = tempObject;
+
+                for (var j = 0; j < currentObjectChildren.length; j++) {
+                    var charge = currentObjectChildren[j];
+                    var chargeTitle = charge.sum + " руб.";
+                    rows[i]["c"].push({"v": charge.sum, "f": chargeTitle});
+                }
+            }
+        });
 
     $scope.columnChartObject = {
         "type": "ColumnChart",
@@ -10,102 +52,9 @@ app.controller('ColumnChartController',function($scope) {
                     "label": "Month",
                     "type": "string",
                     "p": {}
-                },
-                {
-                    "id": "car",
-                    "label": "Машина",
-                    "type": "number",
-                    "p": {}
-                },
-                {
-                    "id": "desktop",
-                    "label": "Проезд",
-                    "type": "number",
-                    "p": {}
-                },
-                {
-                    "id": "server",
-                    "label": "Путешествия",
-                    "type": "number",
-                    "p": {}
-                },
-                {
-                    "id": "cost",
-                    "label": "Еда",
-                    "type": "number"
                 }
             ],
-            "rows": [
-                {
-                    "c": [
-                        {
-                            "v": "Январь"
-                        },
-                        {
-                            "v": 10000,
-                            "f": "10000 руб."
-                        },
-                        {
-                            "v": 3000,
-                            "f": "3000 руб."
-                        },
-                        {
-                            "v": 20000,
-                            "f": "20000 руб."
-                        },
-                        {
-                            "v": 15000,
-                            "f": "15000 руб."
-                        }
-                    ]
-                },
-                {
-                    "c": [
-                        {
-                            "v": "Февраль"
-                        },
-                        {
-                            "v": 10000,
-                            "f": "10000 руб."
-                        },
-                        {
-                            "v": 3000,
-                            "f": "3000 руб."
-                        },
-                        {
-                            "v": 35000,
-                            "f": "35000 руб."
-                        },
-                        {
-                            "v": 15000,
-                            "f": "15000 руб."
-                        }
-                    ]
-                },
-                {
-                    "c": [
-                        {
-                            "v": "Март"
-                        },
-                        {
-                            "v": 10000,
-                            "f": "10000 руб."
-                        },
-                        {
-                            "v": 3000,
-                            "f": "3000 руб."
-                        },
-                        {
-                            "v": 50000,
-                            "f": "50000 руб."
-                        },
-                        {
-                            "v": 15000,
-                            "f": "15000 руб."
-                        }
-                    ]
-                }
-            ]
+            "rows": []
         },
         "options": {
             "title": "Динамика изменения расходов",
@@ -126,58 +75,6 @@ app.controller('ColumnChartController',function($scope) {
             },
             "allowHtml": true
         },
-/*        "formatters": {
-            "date": [
-                {
-                    "columnNum": 5,
-                    "formatType": "long"
-                }
-            ],
-            "number": [
-                {
-                    "columnNum": 4,
-                    "prefix": "$"
-                }
-            ],
-            "bar": [
-                {
-                    "columnNum": 1,
-                    "width": 100
-                }
-            ],
-            "color": [
-                {
-                    "columnNum": 4,
-                    "formats": [
-                        {
-                            "from": 0,
-                            "to": 3,
-                            "color": "white",
-                            "bgcolor": "red"
-                        },
-                        {
-                            "from": 3,
-                            "to": 5,
-                            "color": "white",
-                            "fromBgColor": "red",
-                            "toBgColor": "blue"
-                        },
-                        {
-                            "from": 6,
-                            "to": null,
-                            "color": "black",
-                            "bgcolor": "#33ff33"
-                        }
-                    ]
-                }
-            ]/!*,
-            "arrow": [
-                {
-                    "columnNum": 1,
-                    "base": 19
-                }
-            ]*!/
-        },*/
         "view": {}
     }
 

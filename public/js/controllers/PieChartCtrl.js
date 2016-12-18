@@ -1,35 +1,21 @@
-app.controller('PieChartController',function($scope) {
+app.controller('PieChartController',function($scope,$http) {
     $scope.pieChartObject = {};
 
     $scope.pieChartObject.type = "PieChart";
 
-    $scope.onions = [
-        {v: "Проезд"},
-        {v: 3000}
-    ];
+    $http.get("/api/v1/users/ysabynin/statistics/piechart")
+        .then(function (response) {
+            var resData = response.data;
+            for(var i = 0; i < resData.length; i++){
+                var arr = {"c":[{"v":resData[i]._id},{"v":resData[i].sum}]};
+                $scope.pieChartObject.data.rows.push(arr);
+            }
+        });
 
     $scope.pieChartObject.data = {"cols": [
         {id: "t", label: "Topping", type: "string"},
         {id: "s", label: "Slices", type: "number"}
-    ], "rows": [
-        {c: [
-            {v: "Машина"},
-            {v: 10000},
-        ]},
-        {c: $scope.onions},
-        {c: [
-            {v: "Путешествия"},
-            {v: 50000}
-        ]},
-        {c: [
-            {v: "Еда"},
-            {v: 15000},
-        ]},
-        {c: [
-            {v: "Одежда"},
-            {v: 10000},
-        ]}
-    ]};
+    ], "rows": []};
 
     $scope.pieChartObject.options = {
         'title': 'Расходы по потребностям(руб.)',
